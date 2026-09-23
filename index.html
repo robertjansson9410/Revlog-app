@@ -218,6 +218,44 @@ select {
   margin-top: 15px;
 }
 
+.robot-check {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #555d64;
+  border-radius: 9px;
+  background: #10161b;
+  cursor: pointer;
+}
+
+.robot-check input {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin: 0;
+  accent-color: #ed1c2e;
+}
+
+.robot-check span {
+  font-weight: 600;
+}
+
+.demo-status {
+  margin: 10px 0 0;
+  color: #b8c0c7;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.auth-page input:focus-visible,
+.auth-page select:focus-visible,
+.auth-page button:focus-visible {
+  outline: 2px solid #f15a67;
+  outline-offset: 3px;
+}
+
 .back {
   color: #aaa;
   cursor: pointer;
@@ -449,21 +487,22 @@ footer {
       Kontoöppning är under utveckling. Formuläret är en förhandsvisning.
     </p>
 
-    <label>Användarnamn *</label>
-    <input type="text" placeholder="Välj ett användarnamn">
+    <div class="auth-fields">
+    <label for="register-name">Användarnamn *</label>
+    <input id="register-name" name="username" type="text" autocomplete="username" placeholder="Välj ett användarnamn" required>
 
-    <label>E-postadress *</label>
-    <input type="email" placeholder="din@email.se">
+    <label for="register-email">E-postadress *</label>
+    <input id="register-email" name="email" type="email" autocomplete="email" placeholder="din@email.se" required>
 
-    <label>Lösenord *</label>
-    <input type="password" placeholder="Minst 8 tecken">
+    <label for="register-password">Lösenord *</label>
+    <input id="register-password" name="new-password" type="password" autocomplete="new-password" minlength="8" placeholder="Minst 8 tecken" required>
 
-    <label>Bekräfta lösenord *</label>
-    <input type="password" placeholder="Upprepa ditt lösenord">
+    <label for="register-confirm">Bekräfta lösenord *</label>
+    <input id="register-confirm" name="confirm-password" type="password" autocomplete="new-password" minlength="8" placeholder="Upprepa ditt lösenord" required>
 
-    <label>Land</label>
+    <label for="register-country">Land</label>
 
-    <select>
+    <select id="register-country" name="country">
       <option>Sverige</option>
       <option>Finland</option>
       <option>Norge</option>
@@ -476,11 +515,17 @@ footer {
 
     <p class="notice">Villkor och integritetspolicy publiceras innan konton öppnar.</p>
 
+    <label class="robot-check" for="register-human">
+      <input id="register-human" name="human-check" type="checkbox" required>
+      <span>Jag är inte en robot</span>
+    </label>
+    <p class="demo-status">Förhandsvisning: riktig robotkontroll aktiveras när konton öppnar.</p>
+
     <button class="btn btn-red auth-submit"
-            type="button"
-            onclick="demoAccount()">
+            type="button" onclick="demoAccount()">
       Skapa konto
     </button>
+    </div>
 
     <p class="notice">
       Inga uppgifter sparas från detta formulär. Har du redan ett konto?
@@ -510,17 +555,23 @@ footer {
       Inloggning är under utveckling. Formuläret är en förhandsvisning.
     </p>
 
-    <label>E-postadress</label>
-    <input type="email" placeholder="din@email.se">
+    <div class="auth-fields">
+    <label for="login-email">E-postadress</label>
+    <input id="login-email" name="email" type="email" autocomplete="email" placeholder="din@email.se" required>
 
-    <label>Lösenord</label>
-    <input type="password" placeholder="Ditt lösenord">
+    <label for="login-password">Lösenord</label>
+    <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Ditt lösenord" required>
 
-    <button class="btn btn-red auth-submit"
-            type="button"
-            onclick="demoLogin()">
+    <label class="robot-check" for="login-human">
+      <input id="login-human" name="human-check" type="checkbox" required>
+      <span>Jag är inte en robot</span>
+    </label>
+    <p class="demo-status">Förhandsvisning: riktig robotkontroll aktiveras när inloggningen öppnar.</p>
+
+    <button class="btn btn-red auth-submit" type="button" onclick="demoLogin()">
       Logga in
     </button>
+    </div>
 
     <p class="notice">
       Inga uppgifter skickas från detta formulär. Inget konto ännu?
@@ -602,10 +653,18 @@ function showLegal() {
 }
 
 function demoAccount() {
+  if (!document.getElementById("register-human").checked) {
+    alert("Kryssa i Jag är inte en robot.");
+    return;
+  }
   alert("Det går inte att skapa konto ännu. Inga uppgifter har sparats.");
 }
 
 function demoLogin() {
+  if (!document.getElementById("login-human").checked) {
+    alert("Kryssa i Jag är inte en robot.");
+    return;
+  }
   alert("Det går inte att logga in ännu. Inga uppgifter har skickats.");
 }
 
