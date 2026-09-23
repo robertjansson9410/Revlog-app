@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revlog – Logga in eller skapa konto</title>
+<meta name="description" content="Revlog samlar ditt fordon, din historik och ditt community. Logga in eller skapa konto när tjänsten öppnar.">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #07090b;
+  color: white;
+}
+
+header {
+  height: 75px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #24272b;
+  background: #080a0c;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -2px;
+}
+
+.logo span {
+  color: #ed1c2e;
+}
+
+nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+}
+
+.btn-red {
+  background: #ed1c2e;
+  color: white;
+}
+
+.btn-dark {
+  background: transparent;
+  color: white;
+  border: 1px solid #777;
+}
+
+.hero {
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  padding: 70px 8%;
+  background:
+    radial-gradient(circle at 75% 45%, #4b080d 0%, transparent 35%),
+    linear-gradient(120deg, #080a0c 40%, #120609 100%);
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.small-title {
+  letter-spacing: 5px;
+  color: #bbb;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(65px, 10vw, 125px);
+  margin: 20px 0 5px;
+  font-style: italic;
+  line-height: .9;
+}
+
+.hero h1 span {
+  color: #ed1c2e;
+}
+
+.tagline {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.description {
+  color: #aaa;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 25px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 45px 8%;
+  background: #0b0d10;
+}
+
+.feature {
+  padding: 20px;
+  border-left: 3px solid #ed1c2e;
+}
+
+.feature h3 {
+  margin: 0 0 8px;
+}
+
+.feature p {
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.auth-page {
+  display: none;
+  min-height: calc(100vh - 75px);
+  padding: 60px 20px;
+  background:
+    radial-gradient(circle at 20% 30%, #40070b 0%, transparent 30%),
+    #07090b;
+}
+
+.auth-box {
+  max-width: 520px;
+  margin: auto;
+  background: #0d1115;
+  border: 1px solid #343a40;
+  border-radius: 16px;
+  padding: 38px;
+}
+
+.auth-box h2 {
+  font-size: 36px;
+  margin: 0 0 8px;
+}
+
+.auth-box h2 span {
+  color: #ed1c2e;
+}
+
+.auth-subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin: 18px 0 7px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 14px;
+  background: #080b0e;
+  border: 1px solid #555;
+  border-radius: 7px;
+  color: white;
+  font-size: 16px;
+}
+
+.checkbox {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0;
+  color: #bbb;
+  font-size: 14px;
+  align-items: flex-start;
+}
+
+.checkbox input {
+  width: auto;
+  margin-top: 2px;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.back {
+  color: #aaa;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+
+.back:hover {
+  color: white;
+}
+
+.auth-link {
+  color: #ed1c2e;
+  cursor: pointer;
+}
+
+.notice {
+  margin-top: 20px;
+  color: #777;
+  font-size: 13px;
+  text-align: center;
+}
+
+footer {
+  border-top: 1px solid #222;
+  padding: 25px 8%;
+  color: #777;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+  nav .public-link {
+    display: none;
+  }
+
+  .hero {
+    min-height: 520px;
+  }
+
+  .features {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 500px) {
+  header {
+    padding: 0 4%;
+  }
+
+  nav {
+    gap: 8px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 55px 7%;
+  }
+
+  .tagline {
+    font-size: 19px;
+  }
+
+  .auth-box {
+    padding: 25px;
+  }
+}
+.back {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.info-page {
+  min-height: calc(100vh - 145px);
+  padding: 60px 20px;
+}
+
+.info-page[hidden] { display: none; }
+
+.info-box {
+  max-width: 720px;
+  margin: auto;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+.info-box h2 { font-size: 36px; color: white; }
+
+.footer-links { display: flex; gap: 20px; }
+
+.footer-links button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #aaa;
+  font: inherit;
+  cursor: pointer;
+}
+
+.footer-links button:hover { color: white; }
+
+@media (max-width: 500px) {
+  header { height: auto; min-height: 75px; gap: 8px; }
+  nav .btn { padding: 10px; font-size: 13px; }
+  footer { flex-wrap: wrap; gap: 16px; }
+  .actions { flex-wrap: wrap; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">REV<span>LOG</span></div>
+
+  <nav aria-label="Kontoval">
+
+    <button class="btn btn-dark" onclick="showLogin()">
+      Logga in
+    </button>
+
+    <button class="btn btn-red" onclick="showRegister()">
+      Skapa konto
+    </button>
+  </nav>
+</header>
+
+
+<main id="home">
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="small-title">
+        FÖR ALLA FORDON. FÖR ALLA ENTUSIASTER.
+      </div>
+
+      <h1>
+        REV<span>LOG</span>
+      </h1>
+
+      <div class="tagline">
+        Your vehicle. Your history. Your community.
+      </div>
+
+      <p class="description">
+        Dokumentera ditt fordon, bygg en komplett historik,
+        hitta information och bli en del av ett community
+        skapat för människor som älskar fordon. Logga in eller skapa konto för att använda Revlog när tjänsten öppnar.
+      </p>
+
+      <div class="actions">
+
+        <button class="btn btn-red" onclick="showRegister()">
+          Skapa konto
+        </button>
+
+        <button class="btn btn-dark" onclick="showLogin()">
+          Logga in
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="features" id="features" aria-label="Det här planerar vi för Revlog">
+
+    <div class="feature">
+      <h3>🚗 Dokumentera</h3>
+      <p>
+        Fordonsprofiler, bilder, modifieringar och historik.
+      </p>
+    </div>
+
+    <div class="feature">
+      <h3>👥 Community</h3>
+      <p>
+        Dela ditt fordonsintresse och följ andra entusiaster.
+      </p>
+    </div>
+
+    <div class="feature">
+      <h3>🔧 Lär dig</h3>
+      <p>
+        Guider, fordonsinformation och kompatibla delar.
+      </p>
+    </div>
+
+    <div class="feature">
+      <h3>📅 Upplev</h3>
+      <p>
+        Evenemang, träffar och annat inom fordonsvärlden.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+
+<section id="register" class="auth-page">
+
+  <div class="auth-box">
+
+    <button class="back" type="button" onclick="showHome()">
+      ← Tillbaka till startsidan
+    </button>
+
+    <h2>
+      Skapa <span>konto</span>
+    </h2>
+
+    <p class="auth-subtitle">
+      Kontoöppning är under utveckling. Formuläret är en förhandsvisning.
+    </p>
+
+    <label>Användarnamn *</label>
+    <input type="text" placeholder="Välj ett användarnamn">
+
+    <label>E-postadress *</label>
+    <input type="email" placeholder="din@email.se">
+
+    <label>Lösenord *</label>
+    <input type="password" placeholder="Minst 8 tecken">
+
+    <label>Bekräfta lösenord *</label>
+    <input type="password" placeholder="Upprepa ditt lösenord">
+
+    <label>Land</label>
+
+    <select>
+      <option>Sverige</option>
+      <option>Finland</option>
+      <option>Norge</option>
+      <option>Danmark</option>
+      <option>Storbritannien</option>
+      <option>USA</option>
+      <option>Kanada</option>
+      <option>Annat</option>
+    </select>
+
+    <p class="notice">Villkor och integritetspolicy publiceras innan konton öppnar.</p>
+
+    <button class="btn btn-red auth-submit"
+            type="button"
+            onclick="demoAccount()">
+      Skapa konto
+    </button>
+
+    <p class="notice">
+      Inga uppgifter sparas från detta formulär. Har du redan ett konto?
+      <span class="auth-link" onclick="showLogin()">
+        Logga in
+      </span>
+    </p>
+
+  </div>
+
+</section>
+
+
+<section id="login" class="auth-page">
+
+  <div class="auth-box">
+
+    <button class="back" type="button" onclick="showHome()">
+      ← Tillbaka till startsidan
+    </button>
+
+    <h2>
+      Logga <span>in</span>
+    </h2>
+
+    <p class="auth-subtitle">
+      Inloggning är under utveckling. Formuläret är en förhandsvisning.
+    </p>
+
+    <label>E-postadress</label>
+    <input type="email" placeholder="din@email.se">
+
+    <label>Lösenord</label>
+    <input type="password" placeholder="Ditt lösenord">
+
+    <button class="btn btn-red auth-submit"
+            type="button"
+            onclick="demoLogin()">
+      Logga in
+    </button>
+
+    <p class="notice">
+      Inga uppgifter skickas från detta formulär. Inget konto ännu?
+      <span class="auth-link" onclick="showRegister()">
+        Skapa konto
+      </span>
+    </p>
+
+  </div>
+
+</section>
+
+
+<section id="about" class="info-page" hidden>
+  <div class="info-box">
+    <button class="back" type="button" onclick="showHome()">← Tillbaka till startsidan</button>
+    <h2>Om Revlog</h2>
+    <p>Revlog byggs som en plats för fordonsprofiler, servicehistorik och ett community för fordonsintresserade.</p>
+    <p>De beskrivna funktionerna är planerade och kan inte användas ännu. När konton öppnar krävs inloggning för att nå appens funktioner.</p>
+  </div>
+</section>
+
+<section id="legal" class="info-page" hidden>
+  <div class="info-box">
+    <button class="back" type="button" onclick="showHome()">← Tillbaka till startsidan</button>
+    <h2>Integritet och villkor</h2>
+    <p>Revlog är fortfarande en prototyp. Registrering och inloggning skickar eller sparar inga kontouppgifter.</p>
+    <p>Fullständiga användarvillkor och en integritetspolicy med information om ansvarig, personuppgifter, ändamål, lagring, rättigheter och kontaktväg måste publiceras innan riktiga konton öppnar. Dessa dokument är ännu inte klara, så du kan inte godkänna dem eller skapa konto nu.</p>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Revlog</span>
+  <div class="footer-links">
+    <button type="button" onclick="showAbout()">Om Revlog</button>
+    <button type="button" onclick="showLegal()">Integritet och villkor</button>
+  </div>
+</footer>
+
+
+<script>
+
+function hidePages() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("register").style.display = "none";
+  document.getElementById("login").style.display = "none";
+  document.getElementById("about").hidden = true;
+  document.getElementById("legal").hidden = true;
+}
+
+function showHome() {
+  hidePages();
+  document.getElementById("home").style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+function showRegister() {
+  hidePages();
+  document.getElementById("register").style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+function showLogin() {
+  hidePages();
+  document.getElementById("login").style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+function showAbout() {
+  hidePages();
+  document.getElementById("about").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function showLegal() {
+  hidePages();
+  document.getElementById("legal").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function demoAccount() {
+  alert("Det går inte att skapa konto ännu. Inga uppgifter har sparats.");
+}
+
+function demoLogin() {
+  alert("Det går inte att logga in ännu. Inga uppgifter har skickats.");
+}
+
+</script>
+
+</body>
+</html>
