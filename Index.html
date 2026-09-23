@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Revlog</title>
+<title>Revlog – Logga in eller skapa konto</title>
+<meta name="description" content="Revlog samlar ditt fordon, din historik och ditt community. Logga in eller skapa konto när tjänsten öppnar.">
 
 <style>
 * {
@@ -292,6 +293,49 @@ footer {
     padding: 25px;
   }
 }
+.back {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.info-page {
+  min-height: calc(100vh - 145px);
+  padding: 60px 20px;
+}
+
+.info-page[hidden] { display: none; }
+
+.info-box {
+  max-width: 720px;
+  margin: auto;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+.info-box h2 { font-size: 36px; color: white; }
+
+.footer-links { display: flex; gap: 20px; }
+
+.footer-links button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #aaa;
+  font: inherit;
+  cursor: pointer;
+}
+
+.footer-links button:hover { color: white; }
+
+@media (max-width: 500px) {
+  header { height: auto; min-height: 75px; gap: 8px; }
+  nav .btn { padding: 10px; font-size: 13px; }
+  footer { flex-wrap: wrap; gap: 16px; }
+  .actions { flex-wrap: wrap; }
+}
 </style>
 </head>
 
@@ -300,10 +344,7 @@ footer {
 <header>
   <div class="logo">REV<span>LOG</span></div>
 
-  <nav>
-    <a href="#" class="public-link" onclick="showHome()">Hem</a>
-    <a href="#features" class="public-link">Funktioner</a>
-    <a href="#" class="public-link">Om Revlog</a>
+  <nav aria-label="Kontoval">
 
     <button class="btn btn-dark" onclick="showLogin()">
       Logga in
@@ -337,7 +378,7 @@ footer {
       <p class="description">
         Dokumentera ditt fordon, bygg en komplett historik,
         hitta information och bli en del av ett community
-        skapat för människor som älskar fordon.
+        skapat för människor som älskar fordon. Logga in eller skapa konto för att använda Revlog när tjänsten öppnar.
       </p>
 
       <div class="actions">
@@ -357,7 +398,7 @@ footer {
   </section>
 
 
-  <section class="features" id="features">
+  <section class="features" id="features" aria-label="Det här planerar vi för Revlog">
 
     <div class="feature">
       <h3>🚗 Dokumentera</h3>
@@ -396,16 +437,16 @@ footer {
 
   <div class="auth-box">
 
-    <div class="back" onclick="showHome()">
+    <button class="back" type="button" onclick="showHome()">
       ← Tillbaka till startsidan
-    </div>
+    </button>
 
     <h2>
       Skapa <span>konto</span>
     </h2>
 
     <p class="auth-subtitle">
-      Bli en del av Revlog – det är gratis.
+      Kontoöppning är under utveckling. Formuläret är en förhandsvisning.
     </p>
 
     <label>Användarnamn *</label>
@@ -433,19 +474,7 @@ footer {
       <option>Annat</option>
     </select>
 
-    <label class="checkbox">
-      <input type="checkbox">
-      <span>
-        Jag har läst och godkänner användarvillkoren.
-      </span>
-    </label>
-
-    <label class="checkbox">
-      <input type="checkbox">
-      <span>
-        Jag har läst och godkänner integritetspolicyn.
-      </span>
-    </label>
+    <p class="notice">Villkor och integritetspolicy publiceras innan konton öppnar.</p>
 
     <button class="btn btn-red auth-submit"
             type="button"
@@ -454,7 +483,7 @@ footer {
     </button>
 
     <p class="notice">
-      Har du redan ett konto?
+      Inga uppgifter sparas från detta formulär. Har du redan ett konto?
       <span class="auth-link" onclick="showLogin()">
         Logga in
       </span>
@@ -469,16 +498,16 @@ footer {
 
   <div class="auth-box">
 
-    <div class="back" onclick="showHome()">
+    <button class="back" type="button" onclick="showHome()">
       ← Tillbaka till startsidan
-    </div>
+    </button>
 
     <h2>
       Logga <span>in</span>
     </h2>
 
     <p class="auth-subtitle">
-      Välkommen tillbaka till Revlog.
+      Inloggning är under utveckling. Formuläret är en förhandsvisning.
     </p>
 
     <label>E-postadress</label>
@@ -494,7 +523,7 @@ footer {
     </button>
 
     <p class="notice">
-      Inget konto ännu?
+      Inga uppgifter skickas från detta formulär. Inget konto ännu?
       <span class="auth-link" onclick="showRegister()">
         Skapa konto
       </span>
@@ -505,9 +534,30 @@ footer {
 </section>
 
 
+<section id="about" class="info-page" hidden>
+  <div class="info-box">
+    <button class="back" type="button" onclick="showHome()">← Tillbaka till startsidan</button>
+    <h2>Om Revlog</h2>
+    <p>Revlog byggs som en plats för fordonsprofiler, servicehistorik och ett community för fordonsintresserade.</p>
+    <p>De beskrivna funktionerna är planerade och kan inte användas ännu. När konton öppnar krävs inloggning för att nå appens funktioner.</p>
+  </div>
+</section>
+
+<section id="legal" class="info-page" hidden>
+  <div class="info-box">
+    <button class="back" type="button" onclick="showHome()">← Tillbaka till startsidan</button>
+    <h2>Integritet och villkor</h2>
+    <p>Revlog är fortfarande en prototyp. Registrering och inloggning skickar eller sparar inga kontouppgifter.</p>
+    <p>Fullständiga användarvillkor och en integritetspolicy med information om ansvarig, personuppgifter, ändamål, lagring, rättigheter och kontaktväg måste publiceras innan riktiga konton öppnar. Dessa dokument är ännu inte klara, så du kan inte godkänna dem eller skapa konto nu.</p>
+  </div>
+</section>
+
 <footer>
   <span>© 2026 Revlog</span>
-  <span>Driven by people.</span>
+  <div class="footer-links">
+    <button type="button" onclick="showAbout()">Om Revlog</button>
+    <button type="button" onclick="showLegal()">Integritet och villkor</button>
+  </div>
 </footer>
 
 
@@ -517,6 +567,8 @@ function hidePages() {
   document.getElementById("home").style.display = "none";
   document.getElementById("register").style.display = "none";
   document.getElementById("login").style.display = "none";
+  document.getElementById("about").hidden = true;
+  document.getElementById("legal").hidden = true;
 }
 
 function showHome() {
@@ -537,12 +589,24 @@ function showLogin() {
   window.scrollTo(0, 0);
 }
 
+function showAbout() {
+  hidePages();
+  document.getElementById("about").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function showLegal() {
+  hidePages();
+  document.getElementById("legal").hidden = false;
+  window.scrollTo(0, 0);
+}
+
 function demoAccount() {
-  alert("Registreringen är ännu en prototyp. Riktiga Revlog-konton kopplas in senare.");
+  alert("Det går inte att skapa konto ännu. Inga uppgifter har sparats.");
 }
 
 function demoLogin() {
-  alert("Inloggningen är ännu en prototyp. Riktig autentisering kopplas in senare.");
+  alert("Det går inte att logga in ännu. Inga uppgifter har skickats.");
 }
 
 </script>
